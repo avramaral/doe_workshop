@@ -7,13 +7,13 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 ### Reading data from files
 
 ## Read data from a .txt file
-data1 <- read.table('Human_data.txt')
+data1 <- read.table(url("https://raw.githubusercontent.com/avramaral/doe_workshop/main/Human_data.txt"))
 str(data1)   # presents the structure of the data object
 head(data1)  # Show the first five values in the object
 
 ## The data file has a header and was not correctly read.
 ## Fix this:
-data1 <- read.table('Human_data.txt', header = T)
+data1 <- read.table(url("https://raw.githubusercontent.com/avramaral/doe_workshop/main/Human_data.txt"), header = T)
 str(data1)
 head(data1)
 
