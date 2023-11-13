@@ -421,9 +421,3 @@ shapiro.test(resid(model)) # Shapiro-Wilk normality test
 newdata <- data.frame(ages = 17)
 predict(model, newdata = newdata, interval = 'confidence')
 predict(model, newdata = newdata, interval = 'prediction')
-
-# The prediction interval is always wider than the confidence interval. 
-# The confidence interval expresses the error in estimating the mean of a distribution, 
-# and the prediction interval expresses the error in predicting a future observation from 
-# the distribution at the point `x_0`. This must include the error in estimating the mean 
-# at that point as well as the inherent variability in `heights` at the same value `x = x_0`.
