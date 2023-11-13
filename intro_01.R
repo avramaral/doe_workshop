@@ -389,3 +389,17 @@ predict(model, newdata = newdata)
 ## Linear Regression
 ####################
 
+# Generate dataset
+
+set.seed(999)
+
+beta_0 <- 140
+beta_1 <- 2
+ages <- sample(x = 12:18, size = 30, replace = TRUE) # Sample from 12:18 with replacement
+heights <- round(x = beta_0 + beta_1 * ages + rnorm(n = 10, mean = 0, sd = 2), digits = 2)
+data <- data.frame(heights = heights, ages = ages)
+plot(data$heights, data$ages, xlab = "Height", ylab = "Age")
+
+# Model fitting
+model <- lm(formula = ages ~ heights, data = data)
+summary(model)
