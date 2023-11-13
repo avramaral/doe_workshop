@@ -343,7 +343,49 @@ t.test(Sugar_in_blood ~ Gender, data = data1)
 
 detach(iris)
 
+#################
+## One-way ANOVA
+#################
 
+# Load data and descriptive analysis
+col.names <- c('mixingType', 'strength')
+ts <- read.csv(file = 'Data/tensile_strength.csv', header = FALSE, sep = ',', col.names = col.names)
+head(ts, 5)
 
+summary(ts)
 
+# Change type to `factor`
+ts$mixingType <- as.factor(ts$mixingType)
+summary(ts)
+
+# Plot boxplot
+boxplot(strength ~ mixingType, data = ts)
+
+# Fitting the model
+model <- lm(formula = strength ~ mixingType, data = ts)
+anova(model) # Anova table
+summary(model) # Model summary
+
+# Residual analysis
+par(mfrow = c(2, 1))
+plot(model, which = c(1, 2))
+par(mfrow = c(1, 1))
+
+# Statistical test 
+library("car")
+
+leveneTest(model) # Levene's Test for Homogeneity of Variance
+shapiro.test(resid(model)) # Shapiro-Wilk normality test
+
+# Pairwise comparison
+(modTuk <- TukeyHSD(aov(formula = strength ~ mixingType, data = ts)))
+plot(modTuk)
+
+# Making prediction
+newdata <- data.frame(mixingType = factor(c('A', 'B', 'C', 'D')))
+predict(model, newdata = newdata)
+
+####################
+## Linear Regression
+####################
 
