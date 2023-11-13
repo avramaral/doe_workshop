@@ -348,8 +348,8 @@ detach(iris)
 #################
 
 # Load data and descriptive analysis
-col.names <- c('mixingType', 'strength')
-ts <- read.csv(file = 'Data/tensile_strength.csv', header = FALSE, sep = ',', col.names = col.names)
+col.names <- c("mixingType", "strength")
+ts <- read.csv(file = "https://raw.githubusercontent.com/avramaral/doe_workshop/main/Data/tensile_strength.csv", header = FALSE, sep = ',', col.names = col.names)
 head(ts, 5)
 
 summary(ts)
