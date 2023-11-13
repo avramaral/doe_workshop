@@ -398,8 +398,32 @@ beta_1 <- 2
 ages <- sample(x = 12:18, size = 30, replace = TRUE) # Sample from 12:18 with replacement
 heights <- round(x = beta_0 + beta_1 * ages + rnorm(n = 10, mean = 0, sd = 2), digits = 2)
 data <- data.frame(heights = heights, ages = ages)
-plot(data$heights, data$ages, xlab = "Height", ylab = "Age")
+
+# Plot data
+plot(data$ages, data$heights, xlab = "Age", ylab = "Height", pch = 19, col = 2)
 
 # Model fitting
-model <- lm(formula = ages ~ heights, data = data)
+model <- lm(formula = heights ~ ages, data = data)
 summary(model)
+
+# Residual analysis
+par(mfrow = c(2, 1))
+plot(model, which = c(1, 2))
+par(mfrow = c(1, 1))
+
+# Statistical test 
+library("car")
+
+ncvTest(model) # Non-constant Variance Score Test 
+shapiro.test(resid(model)) # Shapiro-Wilk normality test
+
+# Making prediction
+newdata <- data.frame(ages = 17)
+predict(model, newdata = newdata, interval = 'confidence')
+predict(model, newdata = newdata, interval = 'prediction')
+
+# The prediction interval is always wider than the confidence interval. 
+# The confidence interval expresses the error in estimating the mean of a distribution, 
+# and the prediction interval expresses the error in predicting a future observation from 
+# the distribution at the point `x_0`. This must include the error in estimating the mean 
+# at that point as well as the inherent variability in `heights` at the same value `x = x_0`.
